@@ -10,7 +10,7 @@ export function StoreContextProvider({ children }) {
   const [token, setToken] = useState("");
   const [foodList, setFoodList] = useState([]);
   // const url = "http://localhost:4000";
-  const url = "https://food-delivery-backend-5rn1.onrender.com";
+  const url = "https://food-delivery-backend2-i6r4.onrender.com";
 
   const addToCart = async (itemId) => {
     if(!cartItems[itemId]){
