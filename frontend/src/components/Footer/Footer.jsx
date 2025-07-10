@@ -14,9 +14,7 @@ const Footer = () => {
                         you with the best restaurants near you. Order in seconds and enjoy your favorite meals delivered hot
                         and fresh at your doorstep.</p>
 
-                    <p>Welcome to Tomato – your go-to destination for quick, tasty, and reliable food delivery!
-                      Whether you're craving a cheesy pizza, a spicy biryani, or a healthy salad, Tomato connects you with the best
-                      restaurants near you. Order in seconds and enjoy your favorite meals delivered hot and fresh at your doorstep.</p>
+                    
 
                     <div className="footer-social-icons">
                         <img src={assets.facebook_icon} alt="" />
