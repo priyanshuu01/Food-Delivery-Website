@@ -4,24 +4,28 @@ import axios from 'axios';
 // Create context
 export const StoreContext = createContext(null);
 
-// ✅ Named export for Fast Refresh compatibility
 export function StoreContextProvider({ children }) {
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
   const [foodList, setFoodList] = useState([]);
+  const [showLogin, setShowLogin] = useState(false); // Add login popup state
+  const [userName, setUserName] = useState("");
+  const [showWelcome, setShowWelcome] = useState(false);
   // const url = "http://localhost:4000";
-  const url = "https://food-delivery-website-7zb6.onrender.com";
+  const url = "https://food-delivery-backend2-i6r4.onrender.com";
 
   const addToCart = async (itemId) => {
+    if (!token) {
+      setShowLogin(true); // Show login popup if not logged in
+      return;
+    }
     if(!cartItems[itemId]){
       setCartItems((prev) => ({...prev,[itemId]:1}))
     }
     else{
       setCartItems((prev) => ({...prev , [itemId] : prev[itemId] +1}))
     }
-    if(token){
-      await axios.post(url+"/api/cart/add",{itemId},{headers:{token}})
-    }
+    await axios.post(url+"/api/cart/add",{itemId},{headers:{token}})
   };
 
   const removeFromCart = (itemId) => {
@@ -68,6 +72,12 @@ export function StoreContextProvider({ children }) {
     loadData();
   }, []);
 
+  const setUserAndWelcome = (name) => {
+    setUserName(name);
+    setShowWelcome(true);
+    setTimeout(() => setShowWelcome(false), 3000);
+  };
+
   const contextValue = {
     foodList,
     cartItems,
@@ -78,10 +88,22 @@ export function StoreContextProvider({ children }) {
     url,
     token,
     setToken,
+    showLogin,
+    setShowLogin,
+    userName,
+    setUserName,
+    showWelcome,
+    setShowWelcome,
+    setUserAndWelcome,
   };
 
   return (
     <StoreContext.Provider value={contextValue}>
+      {showWelcome && (
+        <div style={{ position: 'fixed', top: 20, right: 20, background: '#fff', border: '1px solid #ccc', borderRadius: 8, padding: '12px 24px', zIndex: 9999, boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
+          <b>Welcome, {userName}!</b>
+        </div>
+      )}
       {children}
     </StoreContext.Provider>
   );

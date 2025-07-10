@@ -157,7 +157,15 @@ const PlaceOrder = () => {
         amount: getTotalCartAmount() + 2,
       };
 
-      const response = await axios.post(`${url}/api/order/place`, orderData);
+      const response = await axios.post(
+        `${url}/api/order/place`,
+        orderData,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
       console.log("Order placed response:", response);
 

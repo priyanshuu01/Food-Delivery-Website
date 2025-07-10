@@ -44,15 +44,16 @@
 
 // })
 
-
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+
 import { connectDB } from "./config/db.js";
 import foodRouter from "./routes/foodRoute.js";
 import userRouter from "./routes/userRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
-import dotenv from "dotenv";
+import { createDefaultAdmin } from "./createDefaultAdmin.js";
 
 dotenv.config();
 
@@ -63,55 +64,53 @@ const port = process.env.PORT || 4000;
 // Middleware
 app.use(express.json());
 
-// ✅ CORS setup — allow localhost & deployed frontend
+// ✅ CORS setup — allow localhost and deployed frontend
 const allowedOrigins = [
-  'http://localhost:5173',
-  'https://food-delivery-website-3-u43q.onrender.com'
+  "http://localhost:5174",
+  "http://localhost:3000",
+  "http://localhost:4000",
+  "https://food-delivery-website-3-u43q.onrender.com"
 ];
 
 app.use(cors({
-
   origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps or curl)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("❌ Not allowed by CORS"));
     }
   },
-
-   origin:'*',
-   // 'http://localhost:5173',
-   // your frontend URL
-  //  origin: 'https://food-delivery-website-3-u43q.onrender.com',
-
   credentials: true
 }));
 
-// Optional: log incoming origin headers for debugging
+// Optional: Log incoming request origins (for debugging)
 app.use((req, res, next) => {
-  console.log('Request Origin:', req.headers.origin);
+  console.log("Request Origin:", req.headers.origin);
   next();
 });
 
-// DB connection 
+// Database connection
 connectDB();
 
-// API endpoints
+// Create default admin user
+createDefaultAdmin();
+
+// API routes
 app.use("/api/food", foodRouter);
-app.use("/images", express.static("uploads"));
 app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
+app.use("/images", express.static("uploads"));
 
 // Root route
 app.get("/", (req, res) => {
-  res.send("API WORKING");
+  res.send("🚀 API WORKING");
 });
 
 // Start server
 app.listen(port, () => {
   console.log(`✅ Server running on http://localhost:${port}`);
 });
+
 
 

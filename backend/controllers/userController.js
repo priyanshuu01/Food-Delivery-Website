@@ -17,8 +17,8 @@ const loginuser = async(req,res) =>{
          return res.json({success:false, message:"Invalid credentials"})
       }
 
-      const token = createToken(user._id);
-      res.json({success:true,token})
+      const token = createToken(user._id, user.isAdmin);
+      res.json({success:true,token, isAdmin: user.isAdmin})
 
     }catch(error){
     console.log(error);
@@ -26,8 +26,8 @@ const loginuser = async(req,res) =>{
     }
 }
 
-const createToken =(id)=>{
-    return jwt.sign({id},process.env.JWT_SECRET)
+const createToken =(id, isAdmin)=>{
+    return jwt.sign({id, isAdmin},process.env.JWT_SECRET)
 }
 
 // register user
@@ -56,13 +56,13 @@ const registeruser = async(req,res) =>{
      const newUser = new userModel({
         name:name,
         email:email,
-        password:hashedPassword
-
+        password:hashedPassword,
+        isAdmin: false // By default, not admin
      })
 
      const user = await newUser.save()
-     const token = createToken(user._id)
-    res.json({success:true,token})
+     const token = createToken(user._id, user.isAdmin)
+    res.json({success:true,token, isAdmin: user.isAdmin})
    } 
   
    catch(error){
