@@ -66,10 +66,12 @@ const placeOrder = async (req, res) => {
 
 // For testing only
 const placeOrders = (req, res) => {
+
   // Check if user is attached by authMiddleware
   if (!req.headers.token) {
     return res.status(401).json({ success: false, message: "Not authorized. Please login." });
   }
+
   const { amount, items } = req.body;
   console.log(amount, items);
   res.status(200).json({ amount, items });

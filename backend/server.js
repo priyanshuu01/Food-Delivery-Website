@@ -53,7 +53,9 @@ import foodRouter from "./routes/foodRoute.js";
 import userRouter from "./routes/userRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
+
 import { createDefaultAdmin } from "./createDefaultAdmin.js";
+
 
 dotenv.config();
 
@@ -66,9 +68,13 @@ app.use(express.json());
 
 // ✅ CORS setup — allow localhost and deployed frontend
 const allowedOrigins = [
+
   "http://localhost:5174",
   "http://localhost:3000",
   "http://localhost:4000",
+
+  "http://localhost:5173",
+
   "https://food-delivery-website-3-u43q.onrender.com"
 ];
 
@@ -92,8 +98,11 @@ app.use((req, res, next) => {
 // Database connection
 connectDB();
 
+
 // Create default admin user
 createDefaultAdmin();
+
+
 
 // API routes
 app.use("/api/food", foodRouter);
