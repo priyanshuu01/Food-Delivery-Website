@@ -1,13 +1,16 @@
 import React from 'react'
 import './Footer.css'
 import { assets } from '../../assets/assets'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
     return (
         <div className='footer' id='footer'>
             <div className="footer-content">
                 <div className="footer-content-left">
-                    <img src={assets.logo} alt="" />
+                    {/* <img src={assets.logo} alt="" /> */}
+                    <Link to='/'><h1 class="desi-title">DesiDelight</h1></Link>
+
 
                     <p>Welcome to Tomato – your go-to destination for quick, tasty, and reliable food delivery! 
                         Whether you're craving a cheesy pizza, a spicy biryani, or a healthy salad, Tomato connects 

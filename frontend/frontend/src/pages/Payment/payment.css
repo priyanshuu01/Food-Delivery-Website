@@ -1,0 +1,38 @@
+.payment-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  background: linear-gradient(to bottom, #fffdf7, #ffe4cc);
+  min-height: 80vh;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.payment-page h1 {
+  font-size: 2.5rem;
+  color: #ff4d00;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.payment-banner {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  margin-bottom: 30px;
+}
+
+.payment-banner:hover {
+  transform: scale(1.03);
+}
+
+.payment-page p {
+  font-size: 1.1rem;
+  color: #444;
+  max-width: 600px;
+  margin: 0 auto;
+}
