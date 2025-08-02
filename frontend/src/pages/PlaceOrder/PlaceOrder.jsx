@@ -154,7 +154,8 @@ const PlaceOrder = () => {
 
       const orderData = {
         items: orderItems,
-        amount: getTotalCartAmount() + 2,
+        amount: getTotalCartAmount() + 10,
+        address: data, // Include delivery address
       };
 
       const response = await axios.post(
@@ -169,16 +170,21 @@ const PlaceOrder = () => {
 
       console.log("Order placed response:", response);
 
-      if (response.status >= 200 && response.status < 300) {
-        console.log("Navigating to /payment...");
-        navigate('/payment');
+      if (response.data.success && response.data.session_url) {
+        // Redirect to Stripe checkout session
+        console.log("Redirecting to Stripe checkout:", response.data.session_url);
+        window.location.href = response.data.session_url;
       } else {
-        console.warn("Unexpected response status:", response.status);
-        alert("Something went wrong. Please try again.");
+        console.error("Failed to create payment session:", response.data.message);
+        alert(response.data.message || "Failed to initiate payment. Please try again.");
       }
     } catch (error) {
       console.error("Order placement error:", error);
-      alert("Server error. Please check console.");
+      if (error.response) {
+        alert(`Server error: ${error.response.data.message || 'Unknown error'}`);
+      } else {
+        alert("Network error. Please check your connection and try again.");
+      }
     }
   };
 
@@ -214,12 +220,12 @@ const PlaceOrder = () => {
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>${getTotalCartAmount() === 0 ? 0 : 2}</p>
+              <p>${getTotalCartAmount() === 0 ? 0 : 10}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
-              <b>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}</b>
+              <b>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 10}</b>
             </div>
           </div>
           <button type="submit">PROCEED TO PAYMENT</button>

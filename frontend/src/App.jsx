@@ -10,6 +10,8 @@ import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Footer from './components/Footer/Footer';
 import LoginPopup from './components/LoginPopup/LoginPopup';
 import Payment from './pages/Payment/payment';
+import Verify from './pages/Verify/Verify';
+import MyOrders from './pages/MyOrders/MyOrders';
 import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
@@ -29,6 +31,12 @@ const App = () => {
           } />
           <Route path="/order" element={<PlaceOrder />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/verify" element={<Verify />} />
+          <Route path="/myorders" element={
+            <PrivateRoute>
+              <MyOrders />
+            </PrivateRoute>
+          } />
         </Routes>
         <Footer />
       </div>
