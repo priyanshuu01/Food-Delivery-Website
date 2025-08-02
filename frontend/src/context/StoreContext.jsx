@@ -11,8 +11,8 @@ export function StoreContextProvider({ children }) {
   const [showLogin, setShowLogin] = useState(false); // Add login popup state
   const [userName, setUserName] = useState("");
   const [showWelcome, setShowWelcome] = useState(false);
-  const url = "http://localhost:4000";
-  // const url = "https://food-delivery-backend2-i6r4.onrender.com";
+  // const url = "http://localhost:4000";
+  const url = "https://food-delivery-backend2-i6r4.onrender.com";
 
   const addToCart = async (itemId) => {
     if (!token) {
