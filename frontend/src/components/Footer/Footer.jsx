@@ -9,7 +9,7 @@ const Footer = () => {
             <div className="footer-content">
                 <div className="footer-content-left">
                     {/* <img src={assets.logo} alt="" /> */}
-                    <Link to='/'><h1 class="desi-title">DesiDelight</h1></Link>
+                    <Link to='/'><h1 className="desi-title">DesiDelight</h1></Link>
 
 
                     <p>Welcome to Tomato – your go-to destination for quick, tasty, and reliable food delivery! 
